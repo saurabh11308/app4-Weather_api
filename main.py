@@ -1,16 +1,19 @@
 from flask import Flask, render_template
 
-app = Flask("Website")
+app = Flask(__name__)
 
 # The below @ symbol signifies that this line is a decorator and it
 # decorates the below function
 @app.route("/")
 def home():
-    return render_template("sample.html")
+    return render_template("weather.html")
 
-@app.route("/about/")
-def about():
-    return render_template("about.html")
+@app.route("/api/v1/<station>/<date>")
+def about(station,date):
+    temp = 23
+    return {"date":date,
+            "temprature":temp,
+            "station":station}
 
 @app.route("/contact-us/")
 def contact():
@@ -20,4 +23,5 @@ def contact():
 def store():
     return render_template("store.html")
 
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
